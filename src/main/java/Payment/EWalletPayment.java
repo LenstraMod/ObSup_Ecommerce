@@ -34,7 +34,7 @@ public class EwalletPayment extends Payment implements Payable {
         System.out.println("Detail E-wallet:");
         System.out.println("Penyedia Wallet: " + this.walletProvider);
         System.out.println("Nomor Wallet: " + this.walletNumber);
-        System.out.println("Saldo Saat Ini (sebelum transaksi mungkin): " + this.balance);
+        System.out.println("Saldo Saat Ini: " + this.balance);
     }
 
 
