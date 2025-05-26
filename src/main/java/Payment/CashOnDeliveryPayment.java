@@ -1,3 +1,5 @@
+package Payment;
+
 public class CashOnDeliveryPayment extends Payment implements Payable {
     private String receiverName;
     private String deliveryAddress;
