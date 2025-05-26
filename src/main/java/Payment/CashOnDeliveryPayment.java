@@ -1,62 +1,35 @@
-public class EwalletPayment extends Payment implements Payable {
-    private String walletProvider;
-    private String walletNumber;
-    private int balance; 
+public class CashOnDeliveryPayment extends Payment implements Payable {
+    private String receiverName;
+    private String deliveryAddress;
+    private String contactNumber;
 
-    public EwalletPayment(String paymentId, Date paymentDate, String paymentStatus, int productAmount,
-                          String walletProvider, String walletNumber, int balance) {
-        super(paymentId, paymentDate, paymentStatus, productAmount);
-        this.walletProvider = walletProvider;
-        this.walletNumber = walletNumber;
-        this.balance = balance;
+    public CashOnDeliveryPayment(String paymentID, Date paymentDate, String paymentStatus, int productAmount,
+                                 String receiverName, String deliveryAddress, String contactNumber) {
+        super(paymentID, paymentDate, paymentStatus, productAmount);
+        this.receiverName = receiverName;
+        this.deliveryAddress = deliveryAddress;
+        this.contactNumber = contactNumber;
     }
 
-    public boolean checkBalance() {
-        System.out.println("Memeriksa saldo e-wallet...");
-        return this.balance > 0; 
+    public void confirmDelivery() {
+        System.out.println("Delivery dikonfirmasi untuk: " + receiverName + " Di " + deliveryAddress);
+    }
 
-    public void deductBalance() {
-      return null;
+    public boolean collectCash() {
+        System.out.println("Uang diterima dari: " + receiverName);
+        return true;
     }
 
     @Override
     public double calculatedPrice(double productPrice) {
-        double basePrice = super.calculatedPrice(productPrice);
-        System.out.println("Menghitung harga untuk EwalletPayment...");
-        return basePrice; 
-        
+        return super.calculatedPrice(productPrice);
+    }
 
     @Override
     public void paymentDetail(String productId, String userId) {
         super.paymentDetail(productId, userId);
-        System.out.println("Detail E-wallet:");
-        System.out.println("Penyedia Wallet: " + this.walletProvider);
-        System.out.println("Nomor Wallet: " + this.walletNumber);
-        System.out.println("Saldo Saat Ini (sebelum transaksi mungkin): " + this.balance);
-    }
-
-
-    public String getWalletProvider() {
-        return walletProvider;
-    }
-
-    public void setWalletProvider(String walletProvider) {
-        this.walletProvider = walletProvider;
-    }
-
-    public String getWalletNumber() {
-        return walletNumber;
-    }
-
-    public void setWalletNumber(String walletNumber) {
-        this.walletNumber = walletNumber;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
+        System.out.println("Receiver: " + receiverName);
+        System.out.println("Delivery Address: " + deliveryAddress);
+        System.out.println("Contact Number: " + contactNumber);
     }
 }
