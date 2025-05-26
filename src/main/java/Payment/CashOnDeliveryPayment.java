@@ -30,8 +30,8 @@ public class CashOnDeliveryPayment extends Payment implements Payable {
     @Override
     public void paymentDetail(String productId, String userId) {
         super.paymentDetail(productId, userId);
-        System.out.println("Receiver: " + receiverName);
-        System.out.println("Delivery Address: " + deliveryAddress);
-        System.out.println("Contact Number: " + contactNumber);
+        System.out.println("Penerima: " + receiverName);
+        System.out.println("Alamat: " + deliveryAddress);
+        System.out.println("No telepon: " + contactNumber);
     }
 }
