@@ -8,13 +8,11 @@ public class AppTest {
 		
 		System.out.println("Selamat datang");
 		UserHandlingTest.UserHandling();
+		ProductHandlingTest.ProductHandling();
+		
 		
 	}
 	
-	void printMenuProduct() {
-		System.out.println("---------- Pilih Menu ----------");
-		System.out.println("1.Tunjukkan Semua Product");
-	}
 	
 	
 	
