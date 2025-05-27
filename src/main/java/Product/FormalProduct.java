@@ -1,3 +1,4 @@
+
 package Product;
 
 public class FormalProduct extends Product{
@@ -10,5 +11,4 @@ public class FormalProduct extends Product{
 		this.dresscode = dresscode;
 		this.material = material;
 	}
-
 }
