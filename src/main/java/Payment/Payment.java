@@ -15,7 +15,7 @@ public class Payment {
 	
 	public double calculatedPrice(double productPrice) {
 		System.out.println("Jumlah: " + productAmount);
-		return productPrice;
+		return productPrice * productAmount;
 	}
 	
 	public void paymentDetail(String productID, String userId) {
