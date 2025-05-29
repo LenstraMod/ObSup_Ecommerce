@@ -21,7 +21,7 @@ public class Payment {
 	public void paymentDetail(String productID, String userId) {
 		System.out.println("ID Pembayaran: " + paymentID);
 		System.out.println("Tanggal Pembayaran: " + paymentDate);
-		System.out.println("Status Pembayran: " + paymentStatus);
+		System.out.println("Status Pembayaran: " + paymentStatus);
 		System.out.println("Jumlah Produk: " + productAmount);
 	}
 }
