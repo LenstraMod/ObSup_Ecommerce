@@ -15,13 +15,13 @@ public class Payment {
 	
 	public double calculatedPrice(double productPrice) {
 		System.out.println("Jumlah: " + productAmount);
-		return productPrice;
+		return productPrice * productAmount;
 	}
 	
 	public void paymentDetail(String productID, String userId) {
 		System.out.println("ID Pembayaran: " + paymentID);
 		System.out.println("Tanggal Pembayaran: " + paymentDate);
-		System.out.println("Status Pembayran: " + paymentStatus);
+		System.out.println("Status Pembayaran: " + paymentStatus);
 		System.out.println("Jumlah Produk: " + productAmount);
 	}
 }

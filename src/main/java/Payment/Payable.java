@@ -2,6 +2,6 @@ package Payment;
 
 public interface Payable {
   public double calculatePrice(double ProductPrice);
-  public void payment detail(String ProductId, String UserId);
+  public void paymentDetail(String ProductId, String UserId);
   
 }
