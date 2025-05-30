@@ -100,5 +100,46 @@ public class ProductHandler {
 		 }
 	 }
 	 
-	
+	 public ArrayList<Product> ShowFormalProduct(){
+		 
+		 ArrayList<Product> FP = new ArrayList<>();
+		 
+		 for(Product prd: products) {
+			 if(prd instanceof FormalProduct) {
+				 FP.add(prd);
+			 }
+		 }
+		 
+		 return FP;
+	}
+	 
+	 public ArrayList<Product> ShowNonFormalProduct(){
+		 ArrayList<Product> NFP = new ArrayList<>();
+		 
+		 for(Product prd: products) {
+			 if(prd instanceof NonFormalProduct) {
+				 NFP.add(prd);
+			 }
+		 }
+		 
+		 return NFP;
+	 }
+	 
+	 public Product ShowProductDetail(String productId) {
+		 Product product = null;
+		 boolean isProductGet = false;
+		 
+		 for(Product prd: products) {
+			 if(prd.getProductID().equals(productId)) {
+				 product = prd;
+				 isProductGet = true;
+			 }
+		 }
+		 
+		 if(isProductGet = false) {
+			 return null;
+		 }
+		 
+		 return product;
+	 }
 }

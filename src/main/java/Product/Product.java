@@ -31,7 +31,7 @@ public class Product {
 	}
 	
 	public String toString() {
-		return "Product : " + this.productName 
+		return "Product ID : " + this.productID + "\nProduct Name : " + this.productName 
 							+ "\nProduct Stock : " + this.stock 
 							+ "\nProduct Price : " + this.price
 							+ "\nProduct Size : " + this.productSize
