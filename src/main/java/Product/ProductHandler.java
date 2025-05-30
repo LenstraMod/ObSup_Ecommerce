@@ -2,27 +2,103 @@ package Product;
 
 import java.util.*;
 
+import Database.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class ProductHandler {
 
-	 private HashMap<String,Product> products;
+	 private ArrayList<Product> products;
 	 
-	 public void InitializeProduct() {
-		 products = new HashMap<String,Product>();
-		 
-		 products.put("P-" + GenerateID(), new NonFormalProduct("P-" + GenerateID(),"Kaos Gorila","XL","White","Keren Nyaman",10,100000.0,"Santai"));
-		 products.put("P-" + GenerateID(), new FormalProduct("P-" + GenerateID(),"Texudo Wow Wow","XL","Black","Cool kecek",15,1000000.0,"Acara Penting","Kain berkualitas"));
-		
-	 }
+//	 public void InitializeProduct() {
+//		 
+//		 products = new ArrayList<>();
+//		 
+//		 products.add(new FormalProduct("","a","a","a","a",1,1.0,"a","a"));
+//		 products.add(new NonFormalProduct("","a","a","a","a",1,1.0,"a"));
+//		 products.add(new NonFormalProduct("","a","a","a","a",1,1.0,"a"));
+//		 
+//		String sql = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
+//
+//		try(Connection conn = DBConnection.connect(); PreparedStatement pstmt = (conn != null) ? conn.prepareStatement(sql) : null){
+//			if(conn == null) {
+//				System.err.println("Cannot connect to database , failed to initialize product");
+//			}
+//			
+//			if(pstmt == null) {
+//				System.err.println("Cannot make the SQL statement , failed to initialize product");
+//			}
+//			
+//			pstmt.setString(2, products[1]);
+//			
+//		}
+//		
+//	 }
 	 
 	 public void GetAllProducts() {
-		 for(String key : products.keySet()) {
-			 Product product = products.get(key);
-			 System.out.println(key + product);
+		 
+		 products = new ArrayList<>();
+		 
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 
+		 String SQL = "SELECT * FROM Products";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.err.println("Failed to connect dotabase");
+				 return;
+			 }
+			 
+			 pstmt = conn.prepareStatement(SQL);
+			 rs = pstmt.executeQuery();
+			 
+			 while(rs.next()) {
+				 int id =  rs.getInt("productId");
+				 String productName = rs.getString("productName");
+				 String productSize = rs.getString("productSize");
+				 String productColor = rs.getString("productColor");
+				 String productCategory = rs.getString("productCategory");
+				 String productDescription = rs.getString("productDescription");
+				 int stock = rs.getInt("stock");
+				 double price = rs.getDouble("price");
+				 
+				 Product product = null;
+				 
+				 if("Formal Product".equalsIgnoreCase(productCategory)) {
+					 String dresscode = rs.getString("dresscode");
+					 String material = rs.getString("material");
+					 product = new FormalProduct(String.valueOf(id),productName,productSize,productColor,productDescription,stock,price,dresscode,material);
+				 }
+				 else if("Non-Formal Product".equalsIgnoreCase(productCategory)) {
+					 String ocassion = rs.getString("ocassion");
+					 product = new NonFormalProduct(String.valueOf(id),productName,productSize,productColor,productDescription,stock,price,ocassion);
+				 }
+				 else {
+					 System.out.println("Product wihtout category");
+					 product = new Product(String.valueOf(id),productName,productSize,productColor,"",productDescription,stock,price);
+				 }
+				 
+				 products.add(product);
+			 }
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Error while fetching products : " + e.getMessage());
+		 }	 
+	 }
+	 
+	 public void ShowProduct() {
+		 for(Product prd: products) {
+			 System.out.println(prd.toString());
+			 System.out.println();
 		 }
 	 }
 	 
-	 public int GenerateID() {
-		 return products.size() + 1;
-	 }
 	
 }

@@ -8,7 +8,6 @@ public class ProductHandlingTest {
 	
 	public static void ProductHandling() {
 		ProductHandler productBiz = new ProductHandler();
-		productBiz.InitializeProduct();
 		
 		int menu = 0;
 		
@@ -30,6 +29,7 @@ public class ProductHandlingTest {
 			switch(menu) {
 				case 1 :
 					productBiz.GetAllProducts();
+					productBiz.ShowProduct();
 			}
 		}
 	}
