@@ -52,17 +52,40 @@ public class ProductHandlingTest {
 					
 					if(findProduct != null) {
 						System.out.println(productBiz.ShowProductDetail(productIdSearch).toString());
+						
+						System.out.println();
+						System.out.println("Mau Ngapain Nih ?");
+						System.out.println("1.Beli Product");
+						System.out.println("2.Rating Product");
+						System.out.println("3.Comment Product");	
+						
+						int actionMenuProduct = MissionUtil.getIntInput("Pilih Menu : ");
+						
+						ActionMenuProductControl(actionMenuProduct);
 					}
 					else {
 						System.err.println("ID tidak ada");
+						continue;
 					}
-					
-					continue;
+				
 			}
 			} catch(Exception e) {
 				e.printStackTrace();
 				System.out.println(e.getMessage());
 			}
+		}
+	}
+	
+	static void ActionMenuProductControl(int menuNumber) {
+		switch(menuNumber) {
+		case 1:
+			System.out.println();
+			System.out.println("Pilih Metode Pembayaran");
+			System.out.println("1.Kartu Debit/Kredit");
+			System.out.println("2.E-Wallet");
+			System.out.println("3.Cash on Delivery");
+			
+			int paymentMethodMenu = MissionUtil.getIntInput("Pilih metode pembayaran : ");
 		}
 	}
 	

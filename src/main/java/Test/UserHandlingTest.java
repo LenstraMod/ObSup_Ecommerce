@@ -7,11 +7,9 @@ import Utility.*;
 public class UserHandlingTest {
 	
 	
-	
 	public static void UserHandling(){
 		
 		UserManager UserBiz = new UserManager();
-		
 		
 		int menu = 0;
 		
@@ -87,6 +85,7 @@ public class UserHandlingTest {
 			}
 		}
 	}
+	
 	
 	static void UserMenu() {
 		System.out.println("--------- Login dan Register ---------");

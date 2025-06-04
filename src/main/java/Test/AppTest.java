@@ -5,8 +5,8 @@ import User.*;
 public class AppTest {
 	
 	public static void main(String[] args) {
-		
-		System.out.println("Selamat datang");
+		UserHandlingTest.UserHandling();
+		System.out.println("Selamat datang : " + UserManager.getThisSessionUser().getUsername());
 		ProductHandlingTest.ProductHandling();
 		
 		

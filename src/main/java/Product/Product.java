@@ -30,14 +30,16 @@ public class Product {
 		return true;
 	}
 	
+	//Return Format table dari product
 	public String toString() {
+		
 		return "Product ID : " + this.productID + "\nProduct Name : " + this.productName 
-							+ "\nProduct Stock : " + this.stock 
-							+ "\nProduct Price : " + this.price
-							+ "\nProduct Size : " + this.productSize
-							+ "\nProduct Color : " + this.productColor
-							+ "\nProduct Description : " + this.productDescription
-							+ "\nProduct Category : " + this.productCategory;
+						+ "\nProduct Stock : " + this.stock 
+						+ "\nProduct Price : " + this.price
+						+ "\nProduct Size : " + this.productSize
+						+ "\nProduct Color : " + this.productColor
+						+ "\nProduct Description : " + this.productDescription
+						+ "\nProduct Category : " + this.productCategory;
 	}
 	
 	

@@ -13,6 +13,7 @@ public class FormalProduct extends Product{
 	}
 	
 	public String toString() {
+
 		return super.toString() + "\nDresscode : " + this.dresscode + "\nMaterial : " + material;
 	}
 }
