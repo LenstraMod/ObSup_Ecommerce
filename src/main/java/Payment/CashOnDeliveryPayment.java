@@ -5,7 +5,7 @@ public class CashOnDeliveryPayment extends Payment implements Payable {
     private String deliveryAddress;
     private String contactNumber;
 
-    public CashOnDeliveryPayment(String paymentID, Date paymentDate, String paymentStatus, int productAmount,
+    public CashOnDeliveryPayment(String paymentID, String paymentDate, String paymentStatus, int productAmount,
                                  String receiverName, String deliveryAddress, String contactNumber) {
         super(paymentID, paymentDate, paymentStatus, productAmount);
         this.receiverName = receiverName;
@@ -23,7 +23,7 @@ public class CashOnDeliveryPayment extends Payment implements Payable {
     }
 
     @Override
-    public double calculatedPrice(double productPrice) {
+    public double calculatePrice(double productPrice) {
         return super.calculatedPrice(productPrice);
     }
 

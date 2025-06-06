@@ -2,11 +2,11 @@ package Payment;
 
 public class Payment {
   private String paymentID;
-	private Date paymentDate;
+	private String paymentDate;
 	protected String paymentStatus;
 	protected int productAmount;
 	
-	public Payment(String paymentID, Date paymentDate, String paymentStatus, int productAmount) {
+	public Payment(String paymentID, String paymentDate, String paymentStatus, int productAmount) {
 		this.paymentID = paymentID;
 		this.paymentDate = paymentDate;
 		this.paymentStatus = paymentStatus;

@@ -26,6 +26,14 @@ public class Product {
 		return this.price;
 	}
 	
+	public int getStock() {
+		return this.stock;
+	}
+	
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
 	public boolean isAvailable() {
 		return true;
 	}

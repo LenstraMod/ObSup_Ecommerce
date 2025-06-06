@@ -125,6 +125,46 @@ public class ProductHandler {
 		 return NFP;
 	 }
 	 
+	 public void updateStock(String productId, int productAmount) {
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 
+		 String sql = "UPDATE products SET stock = ? WHERE productId = ?";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.out.println("Failed to connect to database");
+			 }
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setInt(1, productAmount);
+			 pstmt.setString(2, productId);
+			 
+			 int executePstmt = pstmt.executeUpdate();
+			 
+			 if(executePstmt > 0) {
+				 
+				 for(Product prd : products) {
+					 if(prd.getProductID().equals(productId)) {
+						 prd.setStock(productAmount);
+					 }
+				 }
+				 System.out.println("Berhasil Update");
+			 }
+			 else {
+				 System.out.println("Gagal Update");
+			 }
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Update Stock Error : "  + e.getMessage());
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Update Stock Error : "  + e.getMessage());
+		 }
+	 }
+	 
 	 public Product ShowProductDetail(String productId) {
 		 Product product = null;
 		 boolean isProductGet = false;

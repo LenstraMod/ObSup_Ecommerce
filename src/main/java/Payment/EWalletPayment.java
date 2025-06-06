@@ -5,7 +5,7 @@ public class EwalletPayment extends Payment implements Payable {
     private String walletNumber;
     private int balance; 
 
-    public EwalletPayment(String paymentId, Date paymentDate, String paymentStatus, int productAmount,
+    public EwalletPayment(String paymentId, String paymentDate, String paymentStatus, int productAmount,
                           String walletProvider, String walletNumber, int balance) {
         super(paymentId, paymentDate, paymentStatus, productAmount);
         this.walletProvider = walletProvider;
@@ -16,13 +16,14 @@ public class EwalletPayment extends Payment implements Payable {
     public boolean checkBalance() {
         System.out.println("Memeriksa saldo e-wallet...");
         return this.balance > 0; 
-
+    }
+    
     public void deductBalance() {
-      return null;
+      
     }
 
     @Override
-    public double calculatedPrice(double productPrice) {
+    public double calculatePrice(double productPrice) {
         double basePrice = super.calculatedPrice(productPrice);
         System.out.println("Menghitung harga untuk EwalletPayment...");
         return basePrice; 

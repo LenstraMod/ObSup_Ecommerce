@@ -10,11 +10,5 @@ public class AppTest {
 		ProductHandlingTest.ProductHandling();
 		
 		
-	}
-	
-	
-	
-	
-	
-
+	} 
 }
