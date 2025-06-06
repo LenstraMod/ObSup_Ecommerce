@@ -11,7 +11,7 @@ public class PaymentManager {
 	
 	static ArrayList<CardPayment> cardDatas;
 	
-	public static boolean cardPaymentProcess(String cardNumber, String cardExpiryDate, String cvv, String  userId, String productId, int productAmount) {
+	public static boolean cardPaymentProcess(String cardNumber, String cardExpiryDate, String cvv, String  userId, String productId, double price) {
 		initializeCardData();
 		
 		Connection conn = null;
@@ -31,9 +31,7 @@ public class PaymentManager {
 			for(CardPayment cp: cardDatas) {
 				if(cp.getCardNumber().equals(cardNumber)){
 					if(cp.getCardExpiryDate().equals(cardExpiryDate)) {
-						if(cp.getCvv().equals(cvv)) {
-							double price = cp.calculatedPrice(productAmount);
-							
+						if(cp.getCvv().equals(cvv)) {						
 							pstmt = conn.prepareStatement(sql);
 							pstmt.setString(1, "Success");
 							pstmt.setDouble(2, price);
@@ -73,6 +71,10 @@ public class PaymentManager {
 			System.err.println("Card Payment Error : " + e.getMessage());
 		}
 		return isSuccess;
+	}
+	
+	public static boolean cashOnDelivery() {
+		
 	}
 	
 	public static void initializeCardData() {

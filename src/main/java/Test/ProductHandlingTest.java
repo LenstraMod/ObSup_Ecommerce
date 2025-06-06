@@ -119,7 +119,7 @@ public class ProductHandlingTest {
 						System.out.print("Masukkan cvv : ");
 						String cvv = MissionUtil.getStringInput();
 						
-						boolean getPaymentStatus = PaymentManager.cardPaymentProcess(cardNumber, expiredDate, cvv, userId, productId,getProductAmount);
+						boolean getPaymentStatus = PaymentManager.cardPaymentProcess(cardNumber, expiredDate, cvv, userId, productId,totalPrice);
 						
 						if(getPaymentStatus) {
 							int productAmountNow = getProduct.getStock() - getProductAmount;

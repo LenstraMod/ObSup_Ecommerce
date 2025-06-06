@@ -28,7 +28,7 @@ public class EwalletPayment extends Payment implements Payable {
         System.out.println("Menghitung harga untuk EwalletPayment...");
         return basePrice; 
         
-
+    }
     @Override
     public void paymentDetail(String productId, String userId) {
         super.paymentDetail(productId, userId);

@@ -2,7 +2,7 @@ package Payment;
 
 import java.util.Date;
 
-public class CardPayment extends Payment{
+public class CardPayment extends Payment implements Payable{
 	private String cardNumber;
 	 private String cardName;
 	 private String cardExpiryDate;
@@ -43,6 +43,14 @@ public class CardPayment extends Payment{
 	public String getCvv() {
 		return cvv;
 	}
+	
+	public double calculatePrice(double ProductPrice) {
+		return this.productAmount * productPrice;
+	}
+	public void paymentDetail(String ProductId, String UserId) {
+		
+	}
+	
 	public void paymentDetail(String productID, String userid) {
 		System.out.println("Metode Pemabayaran: Kartu Kredit");
 		System.out.println("Nama Pemilik Kartu: " + cardName );
