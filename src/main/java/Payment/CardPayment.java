@@ -10,7 +10,7 @@ public class CardPayment extends Payment implements Payable{
 	
 	public CardPayment(String paymentID, String paymentDate, String paymentStatus, int productAmount, 
 			String cardNumber, String cardName, String cardExpiryDate, String cvv) {
-		super(paymentID, paymentDate, paymentStatus, productAmount);
+		super(paymentID, paymentDate, paymentStatus, productAmount,"Card");
 		this.cardNumber = cardNumber;
 		this.cardName = cardName;
 		this.cardExpiryDate = cardExpiryDate;
@@ -18,7 +18,7 @@ public class CardPayment extends Payment implements Payable{
 	}
 	
 	public CardPayment( String cardNumber,String cardName, String cardExpiryDate, String cvv) {
-		super("","","",0);
+		super("","","",0,"");
 		this.cardNumber = cardNumber;
 		this.cardName = cardName;
 		this.cardExpiryDate = cardExpiryDate;
@@ -45,11 +45,9 @@ public class CardPayment extends Payment implements Payable{
 	}
 	
 	public double calculatePrice(double ProductPrice) {
-		return this.productAmount * productPrice;
+		return this.productAmount * ProductPrice;
 	}
-	public void paymentDetail(String ProductId, String UserId) {
-		
-	}
+
 	
 	public void paymentDetail(String productID, String userid) {
 		System.out.println("Metode Pemabayaran: Kartu Kredit");

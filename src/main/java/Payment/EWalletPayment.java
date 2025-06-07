@@ -7,7 +7,7 @@ public class EwalletPayment extends Payment implements Payable {
 
     public EwalletPayment(String paymentId, String paymentDate, String paymentStatus, int productAmount,
                           String walletProvider, String walletNumber, int balance) {
-        super(paymentId, paymentDate, paymentStatus, productAmount);
+        super(paymentId, paymentDate, paymentStatus, productAmount,"E-Wallet Payment");
         this.walletProvider = walletProvider;
         this.walletNumber = walletNumber;
         this.balance = balance;

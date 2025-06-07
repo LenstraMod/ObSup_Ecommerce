@@ -166,7 +166,18 @@ public class ProductHandlingTest {
 						break;
 						
 					case 3:
+						System.out.println("Masukka no telepon yang bisa dihubungi!");
+						System.out.print("No Telepon : ");
+						String phoneNumber = MissionUtil.getStringInput();
+						boolean getPaymentStatusCOD = PaymentManager.cashOnDeliveryProcess(userId, productId, phoneNumber, totalPrice);
 						
+						if(getPaymentStatusCOD) {
+							int productAmountNow = getProduct.getStock() - getProductAmount;
+							productBiz.updateStock(productId, getProductAmount);
+							System.out.println("Checkout Success");
+						} else {
+							System.out.println("Checkout Failed");
+						}
 						break;
 					}
 				} catch(Exception e) {

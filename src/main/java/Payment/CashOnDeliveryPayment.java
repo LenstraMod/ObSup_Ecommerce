@@ -7,7 +7,7 @@ public class CashOnDeliveryPayment extends Payment implements Payable {
 
     public CashOnDeliveryPayment(String paymentID, String paymentDate, String paymentStatus, int productAmount,
                                  String receiverName, String deliveryAddress, String contactNumber) {
-        super(paymentID, paymentDate, paymentStatus, productAmount);
+        super(paymentID, paymentDate, paymentStatus, productAmount,"Cash on Delivery");
         this.receiverName = receiverName;
         this.deliveryAddress = deliveryAddress;
         this.contactNumber = contactNumber;

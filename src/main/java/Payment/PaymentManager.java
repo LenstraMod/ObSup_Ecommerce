@@ -19,7 +19,7 @@ public class PaymentManager {
 		boolean isSuccess = false;
 		boolean isCardFound = false;
 		
-		String sql = "INSERT INTO payments (paymentStatus,paymentAmount,userId,ProductId) values (?,?,?,?)";
+		String sql = "INSERT INTO payments (paymentStatus,paymentAmount,userId,ProductId,paymentMethod) values (?,?,?,?,?)";
 		
 		try {
 			conn = DBConnection.connect();
@@ -37,6 +37,7 @@ public class PaymentManager {
 							pstmt.setDouble(2, price);
 							pstmt.setString(3, userId);
 							pstmt.setString(4, productId);
+							pstmt.setString(5, "Card");
 							
 							int executePstmt = pstmt.executeUpdate();
 							
@@ -73,7 +74,44 @@ public class PaymentManager {
 		return isSuccess;
 	}
 	
-	public static boolean cashOnDelivery() {
+	public static boolean cashOnDeliveryProcess(String userId, String productId, String phoneNumber, double totalPrice) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean isSuccess = false;
+		
+		String sql = "INSERT INTO payments (paymentStatus,paymentAmount,userId,ProductId,paymentMethod) values (?,?,?,?,?)";
+		
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "Success");
+			pstmt.setDouble(2, totalPrice);
+			pstmt.setString(3, userId);
+			pstmt.setString(4, productId);
+			pstmt.setString(5, "Cash on Delivery");
+			
+			int pstmtExecute = pstmt.executeUpdate();
+			
+			if(pstmtExecute > 0) {
+				System.out.println("Checkout Berhasil");
+				isSuccess = true;
+			}
+			else {
+				System.out.println("Checkout Gagal");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("COD Error : " + e.getMessage());
+		} catch(Exception e) {
+			System.out.println("COD Error : " + e.getMessage());
+		}
+		
+		return isSuccess;
 		
 	}
 	
