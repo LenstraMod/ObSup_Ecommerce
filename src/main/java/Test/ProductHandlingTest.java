@@ -1,11 +1,12 @@
 package Test;
 
 import java.sql.SQLException;
+
 import java.util.*;
 
 import Payment.PaymentManager;
 import Product.*;
-import User.UserManager;
+import User.*;
 import Utility.MissionUtil;
 
 public class ProductHandlingTest {
@@ -67,6 +68,24 @@ public class ProductHandlingTest {
 						
 						int actionMenuProduct = MissionUtil.getIntInput("Pilih Menu : ");
 						
+						RegisteredUsers registUser = (RegisteredUsers) UserManager.getThisSessionUser();
+						if(registUser.getAddress() == null) {
+							System.out.println("Ayo isi alamat mu dulu");
+							System.out.print("Alamat/Domisili : ");
+							String fillAddress = MissionUtil.getStringInput();
+							
+							boolean setAddressToDatabase = UserManager.updateAddress(thisUserId, fillAddress);
+							
+							if(setAddressToDatabase) {
+								registUser.setAddress(fillAddress);
+								System.out.println("Success memasukkan alamat");
+							}
+							else {
+								System.err.println("Gagal masukkan alamat ke database");
+								break;
+							}
+						}
+						
 						ActionMenuProductControl(actionMenuProduct,thisUserId,productIdSearch);
 					}
 					else {
@@ -85,9 +104,21 @@ public class ProductHandlingTest {
 	static void ActionMenuProductControl(int menuNumber, String userId, String productId) {
 		switch(menuNumber) {
 		case 1:
-			int getProductAmount = MissionUtil.getIntInput("Masukkan jumlah produk yang ingin dibeli : ");	
 			Product getProduct = productBiz.ShowProductDetail(productId);
+			
+			if(getProduct.getStock() <= 0) {
+				System.out.println("Produk habis dan belum restock");
+				break;
+			}
+			
+			int getProductAmount = MissionUtil.getIntInput("Masukkan jumlah produk yang ingin dibeli : ");	
+			
 			double totalPrice = getProduct.getPrice() * getProductAmount;
+			
+			if(getProduct.getStock() - getProductAmount < 0) {
+				System.out.println("Barang hanya sisa " + getProduct.getStock());
+				break;
+			}
 			
 			System.out.println();
 			System.out.println("Total Harga : " + totalPrice );
@@ -131,6 +162,11 @@ public class ProductHandlingTest {
 						break;
 						
 					case 2:
+						
+						break;
+						
+					case 3:
+						
 						break;
 					}
 				} catch(Exception e) {

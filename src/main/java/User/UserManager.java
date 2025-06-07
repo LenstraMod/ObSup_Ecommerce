@@ -43,7 +43,7 @@ public class UserManager {
 				String role = rs.getString("role");
 				
 				if(role.equals("User")) {
-					CurrentUser = new RegisteredUsers(id,email,username,"",paymentMethod,address);
+					CurrentUser = new RegisteredUsers(id,email,username,"",address,paymentMethod);
 				}
 				else if(role.equals("Admin")) {
 					CurrentUser = new Admin(id,email,username,"");
@@ -60,7 +60,7 @@ public class UserManager {
 	}
 	
 	
-	public static User getThisSessionUser() {
+	public static User getThisSessionUser() {	
 		return CurrentUser;
 	}
 
@@ -171,6 +171,42 @@ public class UserManager {
 	
 	public boolean getIsLogin() {
 		return isLogin;
+	}
+	
+	static public boolean updateAddress(String userId, String address) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean isSuccess = false;
+		
+		String sql = "UPDATE users SET address = ? WHERE userId = ?";
+		
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, address);
+			pstmt.setString(2, userId);
+			
+			int executePstmt = pstmt.executeUpdate();
+			
+			if(executePstmt > 0) {
+				System.out.println("Berhasil Update");
+				isSuccess = true;
+			}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Update Address Error : " + e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Update Address Error : " + e.getMessage());
+		}
+		
+		return isSuccess;
 	}
 	
 //	public void seeDetails() {

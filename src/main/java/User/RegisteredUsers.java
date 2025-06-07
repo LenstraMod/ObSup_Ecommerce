@@ -10,6 +10,32 @@ public class RegisteredUsers extends User{
 		this.address = address;
 		this.PaymentMethod = PaymentMethod;
 	}
+	
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getPaymentMethod() {
+		return PaymentMethod;
+	}
+
+
+
+	public void setPaymentMethod(String paymentMethod) {
+		PaymentMethod = paymentMethod;
+	}
+
+
 
 	@Override
 	public String toString() {
