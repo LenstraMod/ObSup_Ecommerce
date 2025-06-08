@@ -1,4 +1,4 @@
-package History;
+package User;
 
 public class History {
 	public String addHistory() {
