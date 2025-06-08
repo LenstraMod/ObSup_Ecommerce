@@ -1,4 +1,4 @@
-package Rating;
+package User;
 
 import java.util.Date;
 
