@@ -12,6 +12,7 @@ public class FormalProduct extends Product{
 		this.material = material;
 	}
 	
+	@Override
 	public String toString() {
 
 		return super.toString() + "\nDresscode : " + this.dresscode + "\nMaterial : " + material;

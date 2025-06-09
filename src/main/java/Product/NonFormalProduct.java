@@ -10,6 +10,7 @@ public class NonFormalProduct extends Product{
 		this.ocassion = ocassion;
 	}
 	
+	@Override
 	public String toString() {
 		return super.toString() + "\nOcassion : " + ocassion;
 	}

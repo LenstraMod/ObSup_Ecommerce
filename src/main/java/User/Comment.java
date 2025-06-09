@@ -1,8 +1,9 @@
-package Comment;
+package User;
 
 import java.util.Date;
 
 public class Comment {
+	private String CommentId;
 	private String commentText;
 	private Date commentDate;
 	

@@ -68,6 +68,8 @@ public class ProductHandlingTest {
 						
 						int actionMenuProduct = MissionUtil.getIntInput("Pilih Menu : ");
 						
+						
+						
 						RegisteredUsers registUser = (RegisteredUsers) UserManager.getThisSessionUser();
 						if(registUser.getAddress() == null) {
 							System.out.println("Ayo isi alamat mu dulu");
@@ -112,6 +114,10 @@ public class ProductHandlingTest {
 			}
 			
 			int getProductAmount = MissionUtil.getIntInput("Masukkan jumlah produk yang ingin dibeli : ");	
+			
+			if(getProductAmount < 0) {
+				throw new IllegalArgumentException("Angka tidak boleh negatif");
+			}
 			
 			double totalPrice = getProduct.getPrice() * getProductAmount;
 			
@@ -162,6 +168,59 @@ public class ProductHandlingTest {
 						break;
 						
 					case 2:
+						System.out.println();
+						System.out.println("Pilih E-wallet yang kamu gunakan : ");
+						System.out.println("1.GoPey");
+						System.out.println("2.E-Duit");
+						System.out.println("3.ShoppeCash");
+						
+						int EWalletMenu = MissionUtil.getIntInput("Pilih Menu : ");
+						
+						System.out.print("No telepon E-Wallet anda : ");
+						String phoneNumberEWallet = MissionUtil.getStringInput();
+						
+						try {
+							switch(EWalletMenu) {
+							
+							case 1:
+								
+								boolean getPaymentStatusGoPey = PaymentManager.EWalletPaymentProcess("GoPey",phoneNumberEWallet,userId,productId,totalPrice);
+								
+								if(getPaymentStatusGoPey) {
+									System.out.println("Checkout berhasil");
+								}
+								else {
+									System.out.println("Checkout gagal");
+								}
+								break;
+								
+							case 2:
+
+								boolean getPaymentStatusEDuit = PaymentManager.EWalletPaymentProcess("E-Duit",phoneNumberEWallet,userId,productId,totalPrice);
+								
+								if(getPaymentStatusEDuit) {
+									System.out.println("Checkout berhasil");
+								}
+								else {
+									System.out.println("Checkout gagal");
+								}
+								break;
+							case 3:
+
+								boolean getPaymentStatusShopeeCash = PaymentManager.EWalletPaymentProcess("ShopeeCash",phoneNumberEWallet,userId,productId,totalPrice);
+								
+								if(getPaymentStatusShopeeCash) {
+									System.out.println("Checkout berhasil");
+								}
+								else {
+									System.out.println("Checkout gagal");
+								}
+								break;
+							}
+						} catch(Exception e) {
+							e.printStackTrace();
+							System.out.println("EWallet Payment Error : " + e.getMessage());
+						}
 						
 						break;
 						
@@ -180,7 +239,10 @@ public class ProductHandlingTest {
 						}
 						break;
 					}
-				} catch(Exception e) {
+				} catch(IllegalArgumentException e) {
+					e.printStackTrace();
+					System.err.println(e.getMessage());
+				}catch(Exception e) {
 					e.printStackTrace();
 					System.err.println(e.getMessage());
 				} 
