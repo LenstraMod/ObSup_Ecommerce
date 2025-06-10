@@ -3,13 +3,17 @@ package User;
 import java.util.Date;
 
 public class Rating {
-	private Date ratingDate;
+	private String ratingId;
+	private String ratingDate;
 	private int ratingValue;
+	private String productId;
 	
-	public Rating(String productName, double price, String productSize, String productColor, String userID, Date ratingDate, int ratingValue) {
+	public Rating( String ratingId, String ratingDate, int ratingValue, String productId) {
 		super();
+		this.ratingId = ratingId;
 		this.ratingDate = ratingDate;
 		this.ratingValue = ratingValue;
+		this.productId = productId;
 	}
 	
 	public String getRatingByProduct(String productId) {
@@ -18,6 +22,16 @@ public class Rating {
 	
 	public int ratingCalculation() {
 		return this.ratingValue;
+	}
+	
+	
+
+	public int getRatingValue() {
+		return ratingValue;
+	}
+
+	public String getProductId() {
+		return productId;
 	}
 
 	@Override

@@ -15,6 +15,11 @@ public class UserManager {
 	private boolean isLogin = false;
 	private static User CurrentUser;
 	
+	private static ArrayList<Comment> comments;
+	private static ArrayList<User> users;
+	private static ArrayList<Rating> ratings;
+	
+	
 	public void FetchUser(int userID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -35,7 +40,7 @@ public class UserManager {
 			
 			if(rs.next()) {
 				
-				String id = String.valueOf(userID);
+				String id = rs.getString("userId");
 				String username = rs.getString("username");
 				String email = rs.getString("email");
 				String paymentMethod = rs.getString("payment_method");
@@ -59,10 +64,54 @@ public class UserManager {
 			try {if (pstmt != null) {pstmt.close();}} catch (SQLException e) {e.printStackTrace();}
 	}
 	
+	public User getUser(String userId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User user = null;
+		
+		String SQL = "SELECT * from Users WHERE userId = ?";
+		
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				String id = rs.getString("userId");
+				String username = rs.getString("username");
+				String email = rs.getString("email");
+				String role = rs.getString("role");
+				
+				user = new User(id,email,username,"",role);	
+			}
+		} catch (SQLException e) {
+			System.err.println("Get User Error : " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Get User Error : " + e.getMessage());
+		} finally {
+			try {if (rs != null) {rs.close();}} catch (SQLException e) {e.printStackTrace();}}
+			try {if (conn != null) {conn.close();}} catch (SQLException e) {e.printStackTrace();}
+			try {if (pstmt != null) {pstmt.close();}} catch (SQLException e) {e.printStackTrace();
+	
+	
+			
+		}
+			return user;		
+	}
+	
 	
 	public static User getThisSessionUser() {	
 		return CurrentUser;
 	}
+	
 
 
 	public boolean register(String email, String username,String password) {	
@@ -173,7 +222,7 @@ public class UserManager {
 		return isLogin;
 	}
 	
-	static public boolean updateAddress(String userId, String address) {
+	public static boolean updateAddress(String userId, String address) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean isSuccess = false;
@@ -208,6 +257,193 @@ public class UserManager {
 		
 		return isSuccess;
 	}
+	
+	
+	public static void getComment() {
+		comments = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT * from comments";
+		
+
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String commentId = rs.getString("commentId");
+				String commentText = rs.getString("commentText");
+				String commentDate = rs.getString("commentDate");
+				String userId = rs.getString("userId");
+				String productId = rs.getString("productId");
+				
+				comments.add(new Comment(commentId,commentText,commentDate,userId,productId));
+			}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		}
+	}
+
+
+	public static ArrayList<Comment> getComments() {
+		return comments;
+	}
+	
+	public static boolean addComment(String commentText, String userId, String productId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean isSuccess = false;
+		
+		String sql = "INSERT INTO comments (commentText,userId,productId) VALUES (?,?,?)";
+		
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, commentText);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, productId);
+			
+			int executePstmt = pstmt.executeUpdate();
+			
+			if(executePstmt > 0) {
+				System.out.println("Berhasil Comment");
+				isSuccess = true;
+			}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		}
+		
+		return isSuccess;
+	}
+	
+	public static boolean addRating(int ratingValue, String productId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean isSuccess = false;
+		
+		String sql = "INSERT INTO ratings (ratingValue,productId) VALUES (?,?)";
+		
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ratingValue);
+			pstmt.setString(2, productId);
+			
+			int executePstmt = pstmt.executeUpdate();
+			
+			if(executePstmt > 0) {
+				System.out.println("Berhasil Rating");
+				isSuccess = true;
+			}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Rating Error : " + e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Rating Error : " + e.getMessage());
+		}
+		
+		return isSuccess;
+	}
+	
+	public static void getRating() {
+		ratings = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT * from ratings";
+		
+
+		try {
+			conn = DBConnection.connect();
+			
+			if(conn == null) {
+				System.err.println("Failed to connect to database");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String ratingId = rs.getString("ratingId");
+				String commentDate = rs.getString("ratingDate");
+				int ratingValue = rs.getInt("ratingValue");
+				String productId = rs.getString("productId");
+				
+				ratings.add(new Rating(ratingId,commentDate,ratingValue,productId));
+			}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Comment Error : " + e.getMessage());
+		}
+	}
+	
+	public static double ratingCalculation(String productId) {
+		getRating();
+		
+		double ratingTotal = 0;
+		double ratingIndex = 0;
+		double result = 0;
+		
+		for(Rating rt : ratings) {
+			if(rt.getProductId().equals(productId)) {
+				ratingTotal += rt.getRatingValue();
+				ratingIndex++;
+			}
+		}
+		
+		if(ratings.isEmpty()) {
+			System.out.println("Belum ada rating untuk produk ini");
+			result = 0.0;
+		}
+		else if(ratingIndex == 0) {
+			System.out.println("belum ada rating untuk produk ini");
+			result = 0.0;
+		}
+		else {
+			result = ratingTotal/ratingIndex;
+		}
+		
+		return result;
+	}
+	
+	
 	
 //	public void seeDetails() {
 //		for(RegisteredUsers user: users) {

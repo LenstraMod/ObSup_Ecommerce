@@ -2,16 +2,21 @@ package Test;
 
 import java.sql.SQLException;
 
+
 import java.util.*;
+
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 import Payment.PaymentManager;
 import Product.*;
 import User.*;
+import Utility.InputEmptyException;
 import Utility.MissionUtil;
 
 public class ProductHandlingTest {
 	
 	static ProductHandler productBiz = new ProductHandler();
+	static UserManager userBiz = new UserManager();
 	
 	public static void ProductHandling() {
 		
@@ -232,7 +237,7 @@ public class ProductHandlingTest {
 						
 						if(getPaymentStatusCOD) {
 							int productAmountNow = getProduct.getStock() - getProductAmount;
-							productBiz.updateStock(productId, getProductAmount);
+							productBiz.updateStock(productId, productAmountNow);
 							System.out.println("Checkout Success");
 						} else {
 							System.out.println("Checkout Failed");
@@ -247,9 +252,100 @@ public class ProductHandlingTest {
 					System.err.println(e.getMessage());
 				} 
 				
+			
+				
 			}
 			
+		case 2:
+			System.out.println();
+			System.out.println("Rating : " + UserManager.ratingCalculation(productId));
 			
+			System.out.println("Ingin kasih rating ?");
+			System.out.println("1.Kasih rating");
+			System.out.println("2.Kembali");
+			
+			int ratingMenu = MissionUtil.getIntInput("Pilih Menu : ");
+			
+			try {
+				switch(ratingMenu) {
+				case 1:
+					 System.out.println();
+					 int ratingValue = MissionUtil.getIntInput("Masukkan Rating : ");
+					 
+					 boolean getRatingStatus = UserManager.addRating(ratingValue, productId);
+					 
+					 if(getRatingStatus) {
+						 System.out.println("Rating Berhasil");
+						 break;
+					 }
+					 else {
+						 throw new Exception("Rating gagal");
+					 }
+				case 2:
+					break;
+				}
+			} catch (InputEmptyException e) {
+				e.printStackTrace();
+				System.out.println("Rating Error : " + e.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Rating Error : " + e.getMessage());
+			}
+			break;
+			
+		case 3:
+			UserManager.getComment();
+			
+			ArrayList<Comment> allComments = UserManager.getComments();
+			
+			if(allComments.isEmpty()) {
+				System.out.println("Tidak ada data komen");
+			}
+			else {
+				for(Comment cm : UserManager.getComments()) {
+					if(cm.getProductId().equals(productId)) {
+						User getUser = userBiz.getUser(cm.getUserId());
+						System.out.println("User : " + getUser.getUsername() + "\n" +cm.toString());
+						System.out.println();
+					}
+				}
+			}
+			
+			System.out.println("Mau komen?");
+			System.out.println("1.Komen produk");
+			System.out.println("2.Kembali");
+			
+			int menuComment = MissionUtil.getIntInput("Pilih menu : ");
+			
+			try {
+				switch(menuComment) {
+				case 1:
+					System.out.print("Komen : ");
+					String commentText = MissionUtil.getStringInput();
+					
+					boolean getCommentStatus = UserManager.addComment(commentText, userId, productId);
+					
+					if(getCommentStatus) {
+						System.out.println("Komen berhasil di tambahkan");
+					}
+					else {
+						throw new Exception("Gagal Komen");
+					}
+					break;
+				
+				case 2:
+					break;
+				
+				}
+				
+				break;
+			} catch (InputEmptyException e){
+				e.printStackTrace();
+				System.out.println("Komen Error : " + e.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Komen Error : " + e.getMessage());
+			}
 	}
 }
 	

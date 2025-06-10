@@ -1,29 +1,46 @@
 package User;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 
+import Database.DBConnection;
+
 public class Comment {
-	private String CommentId;
+	private String commentId;
 	private String commentText;
-	private Date commentDate;
+	private String commentDate;
+	private String userId;
+	private String productId;
 	
-	public Comment(String productName, double price, String productSize, String productColor, String userID, String commentText, Date commentDate) {
+	
+	public Comment(String commentId, String commentText, String commentDate, String userId, String productId) {
 		super();
+		this.commentId = commentId;
 		this.commentText = commentText;
 		this.commentDate = commentDate;
+		this.userId = userId;
+		this.productId = productId;
 	}
 	
-	public String getUserID() {
-		return "Masukkan User ID: ";
+
+	public String getCommentId() {
+		return commentId;
 	}
-	
-	public String addComment(String productId) {
-	    return "Komentar berhasil ditambahkan ke produk dengan ID: " + productId;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public String getProductId() {
+		return productId;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [commentText=" + commentText + ", commentDate=" + commentDate + "]";
+		return "Comments :" + this.commentText
+				+ "\nTanggal : " + this.commentDate;
 	}
 	
 	
