@@ -20,10 +20,11 @@ public class Payment {
 		return productPrice * productAmount;
 	}
 	
-	public void paymentDetail(String productID, String userId) {
+	public void paymentDetail() {
 		System.out.println("ID Pembayaran: " + paymentID);
 		System.out.println("Tanggal Pembayaran: " + paymentDate);
 		System.out.println("Status Pembayaran: " + paymentStatus);
-		System.out.println("Jumlah Produk: " + productAmount);
+		System.out.println("Total harga: " + productAmount);
+		System.out.println("Payment Method : " + this.paymentMethod);
 	}
 }

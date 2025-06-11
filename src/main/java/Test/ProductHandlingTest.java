@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
+import Payment.Payment;
 import Payment.PaymentManager;
 import Product.*;
 import User.*;
@@ -98,6 +99,14 @@ public class ProductHandlingTest {
 					else {
 						System.err.println("ID tidak ada");
 						continue;
+					}
+					
+				case 5:
+					ArrayList<Payment> getHistory = History.addHistory(thisUserId);
+					
+					for(Payment pym : getHistory) {
+						pym.paymentDetail();
+						System.out.println();
 					}
 				
 			}
@@ -355,6 +364,7 @@ public class ProductHandlingTest {
 		System.out.println("2.Tunjukkan Semua Product Formal");
 		System.out.println("3.Tunjukkan Semua Product Non Formal");
 		System.out.println("4.Check Product");
+		System.out.println("5.Check history pembelian");
 
 	}
 	
