@@ -442,6 +442,9 @@ public class UserManager {
 		
 		return result;
 	}
+	public void logout() {
+		UserManager.CurrentUser = null;
+	}
 	
 	
 	
