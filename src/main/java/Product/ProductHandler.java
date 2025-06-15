@@ -182,4 +182,93 @@ public class ProductHandler {
 		 
 		 return product;
 	 }
+	 
+	 public boolean InsertProduct(String productName, String productSize, String productColor, String productCategory, String productDescription, int stock, double price, String dresscode, String material) {
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 boolean isSuccess = false;;
+		 
+		 String sql = "INSERT INTO products (productName,productSize,productColor,productCategory,productDescription,stock,price,dresscode,material) VALUES (?,?,?,?,?,?,?,?,?)";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.out.println("Failed to connect to database");
+			 }
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, productName);
+			 pstmt.setString(2, productSize);
+			 pstmt.setString(3, productColor);
+			 pstmt.setString(4, productCategory);
+			 pstmt.setString(5, productDescription);
+			 pstmt.setInt(6, stock);
+			 pstmt.setDouble(7, price);
+			 pstmt.setString(8, dresscode);
+			 pstmt.setString(9, material);
+			 
+			 int executePstmt = pstmt.executeUpdate();
+			 
+			 if(executePstmt > 0) {
+				 System.out.println("Berhasil tambah data");
+				 isSuccess = true;
+			 }
+			 else {
+				 throw new Exception("Gagal menambah data");
+			 }
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Add Stock Error : "  + e.getMessage());
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Add Stock Error : "  + e.getMessage());
+		 }
+		 
+		 return isSuccess;
+	 }
+	 
+	 public boolean InsertProduct(String productName, String productSize, String productColor, String productCategory, String productDescription, int stock, double price, String ocassion) {
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 boolean isSuccess = false;;
+		 
+		 String sql = "INSERT INTO products (productName,productSize,productColor,productCategory,productDescription,stock,price,ocassion) VALUES (?,?,?,?,?,?,?,?)";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.out.println("Failed to connect to database");
+			 }
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, productName);
+			 pstmt.setString(2, productSize);
+			 pstmt.setString(3, productColor);
+			 pstmt.setString(4, productCategory);
+			 pstmt.setString(5, productDescription);
+			 pstmt.setInt(6, stock);
+			 pstmt.setDouble(7, price);
+			 pstmt.setString(8, ocassion);
+			 
+			 int executePstmt = pstmt.executeUpdate();
+			 
+			 if(executePstmt > 0) {
+				 System.out.println("Berhasil Tambah Data");
+				 isSuccess = true;
+			 }
+			 else {
+				 System.out.println("Gagal Tambah Data");
+			 }
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Add Stock Error : "  + e.getMessage());
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Add Stock Error : "  + e.getMessage());
+		 }
+		 
+		 return isSuccess;
+	 }
 }

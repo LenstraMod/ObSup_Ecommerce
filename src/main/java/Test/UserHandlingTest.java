@@ -58,6 +58,7 @@ public class UserHandlingTest {
 					} catch (InputEmptyException e) {
 						System.out.println(e.getMessage());
 					}
+					break;
 					
 					
 					

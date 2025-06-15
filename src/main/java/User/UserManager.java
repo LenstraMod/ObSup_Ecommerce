@@ -444,6 +444,8 @@ public class UserManager {
 	}
 	public void logout() {
 		UserManager.CurrentUser = null;
+		System.out.println("Logout Success | Terima Kasih Telah Datang");
+		System.out.println();
 	}
 	
 	

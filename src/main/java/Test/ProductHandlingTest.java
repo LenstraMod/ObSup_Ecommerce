@@ -363,6 +363,106 @@
 		}
 	}
 		
+		public static void AdminProductHandling() {
+			
+			
+			int menu = 0;
+			
+			try {
+				while(menu != 9) {
+					AdminMenu();
+					
+					menu = MissionUtil.getIntInput("Pilih Menu : " );
+					switch(menu) {
+					case 1:
+						System.out.println("Masukkan Produk Baru");
+						System.out.print("Masukkan Nama Product : ");
+						String productName = MissionUtil.getStringInput();
+						
+						System.out.print("Masukkan ukuran produk : ");
+						String productSize = MissionUtil.getStringInput();
+						
+						System.out.print("Masukka warna produk : ");
+						String productColor = MissionUtil.getStringInput();
+						
+						System.out.println("Masukkan kategori produk");
+						System.out.println("1.Produk Formal");
+						System.out.println("2.Produk Casual");
+						int categoryMenu = 0;
+						
+						while(!(categoryMenu == 1) || !(categoryMenu == 2)) {
+							categoryMenu = MissionUtil.getIntInput("Pilih Menu : ");
+							String productCategory;
+							if(categoryMenu == 1) {
+								productCategory = "Formal Product";
+								break;
+							}
+							else if(categoryMenu == 2) {
+								productCategory = "Non-Formal Product";
+								break;
+							}
+							else {
+								System.out.println("Wajib Masukkan Category Produk");
+							}
+						}
+						
+						
+						
+						System.out.print("Masukkan deskripsi produk : ");
+						String productDescription = MissionUtil.getStringInput();
+						
+						int stock = MissionUtil.getIntInput("Masukkan stok produk : ");
+						
+						double price = MissionUtil.getIntInput("Masukkan harga produk : ");
+						
+						if(categoryMenu == 1) {
+							System.out.print("Masukkan dresscode produk : ");
+							String dresscode = MissionUtil.getStringInput();
+							
+							System.out.print("Masukkan material produk produk : ");
+							String material = MissionUtil.getStringInput();
+							
+							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productColor, productDescription, stock, price, dresscode, material);
+							
+							if(getAddStatus) {
+								System.out.println("Berhasil menambahkan produk");
+							} else {
+								throw new Exception("Gagal menambah produk");
+							}
+							
+						} else if(categoryMenu == 2) {
+							System.out.print("Masukkan ocassion produk : ");
+							String ocassion = MissionUtil.getStringInput();
+							
+							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productColor, productDescription, stock, price, ocassion);
+							
+							if(getAddStatus) {
+								System.out.println("Berhasil menambahkan produk");
+							} else {
+								throw new Exception("Gagal menambah produk");
+							}
+						}
+						
+						break;
+						
+					case 9:
+						userBiz.logout();
+				}
+					
+				}
+			} catch(InputEmptyException e) {
+				e.printStackTrace();
+				System.out.println("Add Product Error :" + e.getMessage());
+			} catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Add Product Error :" + e.getMessage());
+			}
+			
+			
+			
+			
+		}
+		
 		static void ProductMenu() {
 			System.out.println("---------- Pilih Menu ----------");
 			System.out.println("1.Tunjukkan Semua Product");
@@ -372,6 +472,14 @@
 			System.out.println("5.Check history pembelian");
 			System.out.println("9.Log out");
 	
+		}
+		
+		static void AdminMenu() {
+			System.out.println("---------- Pilih Menu ----------");
+			System.out.println("1.Tambah Produk");
+			System.out.println("2.Edit Produk");
+			System.out.println("3.Delete Produk");
+			System.out.println("9.Log out");
 		}
 		
 	}

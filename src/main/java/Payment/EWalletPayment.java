@@ -52,7 +52,7 @@ public class EWalletPayment extends Payment implements Payable {
     }
     @Override
     public void paymentDetail(String productId, String userId) {
-        super.paymentDetail(productId, userId);
+        super.paymentDetail();
         System.out.println("Detail E-wallet:");
         System.out.println("Penyedia Wallet: " + this.walletProvider);
         System.out.println("Nomor Wallet: " + this.walletNumber);
