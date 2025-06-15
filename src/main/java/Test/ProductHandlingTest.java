@@ -46,15 +46,35 @@
 					switch(menu) {
 					case 1 :
 						productBiz.ShowProduct();
-						continue;
+						break;
 						
 					case 2:
-						System.out.println(productBiz.ShowFormalProduct());
-						continue;
+						ArrayList<Product> formalProducts = productBiz.ShowFormalProduct();
+						
+						if(formalProducts.isEmpty()) {
+							System.out.println("Tidak ada produk yang tersedia");
+						}
+						else {
+							for(Product prd : formalProducts) {
+								System.out.println(prd.toString());
+								System.out.println();
+							}
+						}
+						break;
 						
 					case 3:
-						System.out.println(productBiz.ShowNonFormalProduct());
-						continue;
+						ArrayList<Product> nonFormalProducts = productBiz.ShowNonFormalProduct();
+						
+						if(nonFormalProducts.isEmpty()) {
+							System.out.println("Tidak ada produk yang tersedia");
+						}
+						else {
+							for(Product prd : nonFormalProducts) {
+								System.out.println(prd.toString());
+								System.out.println();
+							}
+						}
+						break;
 						
 					case 4:
 						menuProduct = MissionUtil.getIntInput("Masukkan ID product : ");
@@ -64,7 +84,7 @@
 						Product findProduct = productBiz.ShowProductDetail(productIdSearch);
 						
 						if(findProduct != null) {
-							System.out.println(productBiz.ShowProductDetail(productIdSearch).toString());
+							System.out.println(findProduct.toString());
 							
 							System.out.println();
 							System.out.println("Mau Ngapain Nih ?");
@@ -97,9 +117,9 @@
 							ActionMenuProductControl(actionMenuProduct,thisUserId,productIdSearch);
 						}
 						else {
-							System.err.println("ID tidak ada");
-							continue;
+							throw new Exception("ID produk tidak ada");
 						}
+						break;
 						
 					case 5:
 						ArrayList<Payment> getHistory = History.addHistory(thisUserId);
@@ -108,8 +128,7 @@
 							pym.paymentDetail();
 							System.out.println();
 						}
-						continue;
-					
+						break;
 					case 9:
 						System.out.println("Thank you");
 						userBiz.logout();
@@ -264,11 +283,9 @@
 					}catch(Exception e) {
 						e.printStackTrace();
 						System.err.println(e.getMessage());
-					} 
-					
-				
-					
+					} 	
 				}
+				break;
 				
 			case 2:
 				System.out.println();
@@ -364,13 +381,13 @@
 	}
 		
 		public static void AdminProductHandling() {
-			
+			productBiz.GetAllProducts();
 			
 			int menu = 0;
-			
-			try {
-				while(menu != 9) {
-					AdminMenu();
+			while(menu != 9) {
+				try {
+				
+AdminMenu();
 					
 					menu = MissionUtil.getIntInput("Pilih Menu : " );
 					switch(menu) {
@@ -389,10 +406,10 @@
 						System.out.println("1.Produk Formal");
 						System.out.println("2.Produk Casual");
 						int categoryMenu = 0;
-						
+						String productCategory = null;
 						while(!(categoryMenu == 1) || !(categoryMenu == 2)) {
 							categoryMenu = MissionUtil.getIntInput("Pilih Menu : ");
-							String productCategory;
+						
 							if(categoryMenu == 1) {
 								productCategory = "Formal Product";
 								break;
@@ -405,8 +422,6 @@
 								System.out.println("Wajib Masukkan Category Produk");
 							}
 						}
-						
-						
 						
 						System.out.print("Masukkan deskripsi produk : ");
 						String productDescription = MissionUtil.getStringInput();
@@ -422,7 +437,7 @@
 							System.out.print("Masukkan material produk produk : ");
 							String material = MissionUtil.getStringInput();
 							
-							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productColor, productDescription, stock, price, dresscode, material);
+							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productCategory, productDescription, stock, price, dresscode, material);
 							
 							if(getAddStatus) {
 								System.out.println("Berhasil menambahkan produk");
@@ -434,33 +449,164 @@
 							System.out.print("Masukkan ocassion produk : ");
 							String ocassion = MissionUtil.getStringInput();
 							
-							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productColor, productDescription, stock, price, ocassion);
+							boolean getAddStatus = productBiz.InsertProduct(productName, productSize, productColor, productCategory, productDescription, stock, price, ocassion);
 							
 							if(getAddStatus) {
 								System.out.println("Berhasil menambahkan produk");
+								productBiz.GetAllProducts();
 							} else {
 								throw new Exception("Gagal menambah produk");
 							}
 						}
 						
 						break;
+					case 2:
+						 
+						System.out.print("Masukkan produk ID : ");
+						String getProductId = MissionUtil.getStringInput();
 						
+						Product findProduct = productBiz.ShowProductDetail(getProductId);
+						String propertyUpdate = null;
+						String newValue = null;
+						
+						if(findProduct != null) {
+							System.out.println(findProduct.toString());
+							
+							System.out.println("Pilih bagian produk yang ingin diedit ?");
+							System.out.println("1.Nama Produk");
+							System.out.println("2.Ukuran Produk");
+							System.out.println("3.Warna Produk");
+							System.out.println("4.Kategori Produk");
+							System.out.println("5.Deskripsi Produk");
+							System.out.println("6.Stok Produk");
+							System.out.println("7.Harga Produk");
+							if(findProduct.getProductCategory().equals("Formal Product")) {
+								System.out.println("8.Dresscode Produk");
+								System.out.println("9.Material Produl");
+							}
+							else {
+								System.out.println("8.Ocassion Produk");
+							}
+							
+							try {
+								int menuEditProduct = MissionUtil.getIntInput("Pilih Menu : ");
+								
+								switch(menuEditProduct) {
+								case 1:
+									System.out.print("Masukkan nama produk yang baru : ");
+									propertyUpdate = "productName";
+									newValue = MissionUtil.getStringInput();
+									break;
+								
+								case 2:
+									System.out.print("Masukkan ukuran produk yang baru : ");
+									propertyUpdate = "productSize";
+									newValue = MissionUtil.getStringInput();
+									break;
+								
+								case 3:
+									System.out.print("Masukkan warna produk yang baru : ");
+									propertyUpdate = "productColor";
+									newValue = MissionUtil.getStringInput();
+									break;
+									
+								case 4:
+									System.out.print("Masukkan kategori produk yang baru : ");
+									propertyUpdate = "productCategory";
+									newValue = MissionUtil.getStringInput();
+									break;
+								
+								case 5:
+									System.out.print("Masukkan deskripsi produk yang baru : ");
+									propertyUpdate = "productDescription";
+									newValue = MissionUtil.getStringInput();
+									break;
+								case 6:
+									System.out.print("Masukkan stok produk yang baru : ");
+									propertyUpdate = "stock";
+									newValue = MissionUtil.getStringInput();
+									break;
+								case 7:
+									System.out.print("Masukkan harga produk yang baru : ");
+									propertyUpdate = "price";
+									newValue = MissionUtil.getStringInput();
+									break;
+								case 8:
+									if(findProduct.getProductCategory().equals("Formal Product")) {
+										System.out.print("Masukkan dresscode produk yang baru : ");
+										propertyUpdate = "dresscode";
+										newValue = MissionUtil.getStringInput();
+										break;
+									}
+									else {
+										System.out.print("Masukkan occasion produk yang baru : ");
+										propertyUpdate = "ocassion";
+										newValue = MissionUtil.getStringInput();
+										break;
+									}
+									
+								case 9:
+									if(findProduct.getProductCategory().equals("Formal Product")) {
+										System.out.print("Masukkan material produk yang baru : ");
+										propertyUpdate = "material";
+										newValue = MissionUtil.getStringInput();
+										break;
+									}
+									else {
+										throw new Exception("Pilih nomor menu yang sesuai");
+									}
+									
+								}
+							} catch(InputEmptyException e) {
+								e.printStackTrace();
+								System.out.println("Add Product Error :" + e.getMessage());
+							} catch(Exception e) {
+								e.printStackTrace();
+								System.out.println("Add Product Error :" + e.getMessage());
+							}
+							
+							boolean getUpdateStatus = productBiz.UpdateProduct(getProductId, propertyUpdate, newValue);
+							
+							if(getUpdateStatus) {
+								System.out.println("Data berhasil diupdate");
+								productBiz.GetAllProducts();
+							}
+							else {
+								throw new Exception("Data gagal diupdate");
+							}
+							
+						} else {
+							throw new Exception("ID Product tidak ada");
+						}
+						break;
+					
+					case 3:
+						System.out.print("Masukkan produk ID : ");
+						String getProductIdDelete = MissionUtil.getStringInput();
+						
+						Product findProductDelete = productBiz.ShowProductDetail(getProductIdDelete);
+						
+						if(findProductDelete != null) {
+							productBiz.DeleteProduct(getProductIdDelete);
+							productBiz.GetAllProducts();
+						} else {
+							throw new Exception("ID produk tidak ada");
+						}
+						break;
 					case 9:
 						userBiz.logout();
+						break;
 				}
 					
+					
+				} catch(InputEmptyException e) {
+					e.printStackTrace();
+					System.out.println("Add Product Error :" + e.getMessage());
+				} catch(Exception e) {
+					e.printStackTrace();
+					System.out.println("Add Product Error :" + e.getMessage());
 				}
-			} catch(InputEmptyException e) {
-				e.printStackTrace();
-				System.out.println("Add Product Error :" + e.getMessage());
-			} catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("Add Product Error :" + e.getMessage());
 			}
-			
-			
-			
-			
 		}
 		
 		static void ProductMenu() {

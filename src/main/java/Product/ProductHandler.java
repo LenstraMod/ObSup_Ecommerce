@@ -81,7 +81,6 @@ public class ProductHandler {
 					 product = new NonFormalProduct(String.valueOf(id),productName,productSize,productColor,productDescription,stock,price,ocassion);
 				 }
 				 else {
-					 System.out.println("Product wihtout category");
 					 product = new Product(String.valueOf(id),productName,productSize,productColor,"",productDescription,stock,price);
 				 }
 				 
@@ -263,12 +262,87 @@ public class ProductHandler {
 			 }
 		 } catch(SQLException e) {
 			 e.printStackTrace();
-			 System.out.println("Add Stock Error : "  + e.getMessage());
+			 System.out.println("Add product Error : "  + e.getMessage());
 		 } catch(Exception e) {
 			 e.printStackTrace();
-			 System.out.println("Add Stock Error : "  + e.getMessage());
+			 System.out.println("Add product Error : "  + e.getMessage());
 		 }
 		 
 		 return isSuccess;
+	 }
+	 
+	 public boolean UpdateProduct(String productId, String productProperty, String newValue) {
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 boolean isSuccess = false;;
+		 
+		 String sql = "UPDATE products SET " + productProperty + " = ? WHERE productId = ?";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.out.println("Failed to connect to database");
+			 }
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, newValue);
+			 pstmt.setString(2, productId);
+			 
+			 int executePstmt = pstmt.executeUpdate();
+			 
+			 if(executePstmt > 0) {
+				 System.out.println("Berhasil update data");
+				 isSuccess = true;
+			 }
+			 else {
+				 throw new Exception("Gagal update data");
+			 }
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Update product Error : "  + e.getMessage());
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Update product Error : "  + e.getMessage());
+		 }
+		 
+		 return isSuccess;
+	 }
+	 
+	 public boolean DeleteProduct(String productId){
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 boolean isDelete = false;
+		 
+		 String SQL = "DELETE FROM products WHERE productId = ?";
+		 
+		 try {
+			 conn = DBConnection.connect();
+			 
+			 if(conn == null) {
+				 System.err.println("Failed to connect to database");
+			 }
+			 
+			 pstmt = conn.prepareStatement(SQL);
+			 pstmt.setString(1, productId);
+			 
+			 int executePstmt = pstmt.executeUpdate();
+			 
+			 if(executePstmt > 0) {
+				 System.out.println("Delete data berhasil");
+				 isDelete = true;
+			 }
+			 else {
+				 throw new Exception("Delete data gagal");
+			 }
+			 
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+			 System.out.println("Delete Error : " + e.getMessage());
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Delete Error :  " + e.getMessage());
+		 }
+		 return isDelete;	 
 	 }
 }

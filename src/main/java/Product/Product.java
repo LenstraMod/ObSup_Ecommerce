@@ -34,6 +34,10 @@ public class Product {
 		this.stock = stock;
 	}
 	
+	public String getProductCategory() {
+		return this.productCategory;
+	}
+	
 	public boolean isAvailable() {
 		return true;
 	}
