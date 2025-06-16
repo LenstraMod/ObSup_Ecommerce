@@ -1,7 +1,6 @@
 package Payment;
 
-import java.util.Date;
-
+//Data pembayaran melalui COD
 public class CardPayment extends Payment implements Payable{
 	private String cardNumber;
 	 private String cardName;

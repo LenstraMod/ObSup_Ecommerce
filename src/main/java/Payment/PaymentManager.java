@@ -12,6 +12,7 @@ public class PaymentManager {
 	static ArrayList<CardPayment> cardDatas;
 	static ArrayList<EWalletPayment> EWalletDatas;
 	
+	//Controller pembayaran melalui card
 	public static boolean cardPaymentProcess(String cardNumber, String cardExpiryDate, String cvv, String  userId, String productId, double price) {
 		initializeCardData();
 		
@@ -75,6 +76,7 @@ public class PaymentManager {
 		return isSuccess;
 	}
 	
+	//Controller pembayaran melalui cash on delivery
 	public static boolean cashOnDeliveryProcess(String userId, String productId, String phoneNumber, double totalPrice) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -116,6 +118,8 @@ public class PaymentManager {
 		
 	}
 	
+	
+	//Controller pembayaran melalui e-wallet
 	public static boolean EWalletPaymentProcess(String providerName, String walletNumber, String userId, String productId, double totalPrice) {
 		initializeEWalletData();
 		
@@ -173,6 +177,7 @@ public class PaymentManager {
 		return isSuccess;
 	}
 	
+	//Melakukan update balance untuk ewallet
 	public static boolean updateBalance(String walletId, int balance) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -210,6 +215,7 @@ public class PaymentManager {
 		return isSuccess;
 	}
 	
+	//Mengambil data ewallet dari database
 	public static void initializeEWalletData() {
 		
 		EWalletDatas = new ArrayList<>();
@@ -249,6 +255,8 @@ public class PaymentManager {
 		}
 		
 	}
+	
+	//mengambil data kartu dari database
 	public static void initializeCardData() {
 		
 		cardDatas = new ArrayList<>();

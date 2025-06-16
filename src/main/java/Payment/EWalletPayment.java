@@ -1,11 +1,14 @@
 package Payment;
 
+//Pembayaran melalui e wallet
 public class EWalletPayment extends Payment implements Payable {
 	private String walletId;
     private String walletProvider;
     private String walletNumber;
     private int balance; 
 
+    //Overloading
+    //Construction e wallet dengan parentnya. Digunakan untuk pembayaran
     public EWalletPayment( String paymentId, String paymentDate, String paymentStatus, int productAmount,
     		String walletId, String walletProvider, String walletNumber, int balance) {
         super(paymentId, paymentDate, paymentStatus, productAmount,"E-Wallet Payment");
@@ -16,7 +19,7 @@ public class EWalletPayment extends Payment implements Payable {
     }
     
    
-
+    //Construction e wallet untuk property e wallet saja. Ini digunakan untuk mengambil data dummy ewallet
     public EWalletPayment(String walletId, String walletProvider, String walletNumber, int balance) {
 		super("","","",0,"");
 		this.walletId = walletId;
@@ -24,13 +27,6 @@ public class EWalletPayment extends Payment implements Payable {
 		this.walletNumber = walletNumber;
 		this.balance = balance;
 	}
-
-
-
-	public boolean checkBalance() {
-        System.out.println("Memeriksa saldo e-wallet...");
-        return this.balance > 0; 
-    }
     
     public int deductBalance(double totalPrice) {
     	return (int) (this.balance - totalPrice);
@@ -47,9 +43,9 @@ public class EWalletPayment extends Payment implements Payable {
     public double calculatePrice(double productPrice) {
         double basePrice = super.calculatedPrice(productPrice);
         System.out.println("Menghitung harga untuk EwalletPayment...");
-        return basePrice; 
-        
+        return basePrice;      
     }
+	
     @Override
     public void paymentDetail(String productId, String userId) {
         super.paymentDetail();

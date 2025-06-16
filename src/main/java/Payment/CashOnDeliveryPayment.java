@@ -1,5 +1,6 @@
 package Payment;
 
+//Data pembayaran melalui COD
 public class CashOnDeliveryPayment extends Payment implements Payable {
     private String receiverName;
     private String deliveryAddress;
@@ -11,15 +12,6 @@ public class CashOnDeliveryPayment extends Payment implements Payable {
         this.receiverName = receiverName;
         this.deliveryAddress = deliveryAddress;
         this.contactNumber = contactNumber;
-    }
-
-    public void confirmDelivery() {
-        System.out.println("Delivery dikonfirmasi untuk: " + receiverName + " Di " + deliveryAddress);
-    }
-
-    public boolean collectCash() {
-        System.out.println("Uang diterima dari: " + receiverName);
-        return true;
     }
 
     @Override

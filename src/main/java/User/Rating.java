@@ -2,6 +2,7 @@ package User;
 
 import java.util.Date;
 
+//Data rating
 public class Rating {
 	private String ratingId;
 	private String ratingDate;
@@ -19,13 +20,7 @@ public class Rating {
 	public String getRatingByProduct(String productId) {
 		return "Rating berhasil ditambahkan ke produk dengan ID: " + productId;
     }
-	
-	public int ratingCalculation() {
-		return this.ratingValue;
-	}
-	
-	
-
+		
 	public int getRatingValue() {
 		return ratingValue;
 	}

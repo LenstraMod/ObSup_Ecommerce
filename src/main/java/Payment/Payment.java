@@ -1,7 +1,8 @@
 package Payment;
 
+//Data pembayaran
 public class Payment {
-  private String paymentID;
+	private String paymentID;
 	private String paymentDate;
 	protected String paymentStatus;
 	protected int productAmount;

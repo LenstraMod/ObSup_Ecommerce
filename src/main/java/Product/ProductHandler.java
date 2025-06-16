@@ -11,32 +11,7 @@ import java.sql.SQLException;
 
 public class ProductHandler {
 
-	 private ArrayList<Product> products;
-	 
-//	 public void InitializeProduct() {
-//		 
-//		 products = new ArrayList<>();
-//		 
-//		 products.add(new FormalProduct("","a","a","a","a",1,1.0,"a","a"));
-//		 products.add(new NonFormalProduct("","a","a","a","a",1,1.0,"a"));
-//		 products.add(new NonFormalProduct("","a","a","a","a",1,1.0,"a"));
-//		 
-//		String sql = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
-//
-//		try(Connection conn = DBConnection.connect(); PreparedStatement pstmt = (conn != null) ? conn.prepareStatement(sql) : null){
-//			if(conn == null) {
-//				System.err.println("Cannot connect to database , failed to initialize product");
-//			}
-//			
-//			if(pstmt == null) {
-//				System.err.println("Cannot make the SQL statement , failed to initialize product");
-//			}
-//			
-//			pstmt.setString(2, products[1]);
-//			
-//		}
-//		
-//	 }
+	 private ArrayList<Product> products;	 
 	 
 	 //User Function
 	 

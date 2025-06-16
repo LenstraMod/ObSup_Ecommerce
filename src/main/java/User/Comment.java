@@ -7,6 +7,7 @@ import java.util.Date;
 
 import Database.DBConnection;
 
+//Data comment
 public class Comment {
 	private String commentId;
 	private String commentText;
@@ -14,7 +15,7 @@ public class Comment {
 	private String userId;
 	private String productId;
 	
-	
+	//Construction comment untuk membuat objek
 	public Comment(String commentId, String commentText, String commentDate, String userId, String productId) {
 		super();
 		this.commentId = commentId;
