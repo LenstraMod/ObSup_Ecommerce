@@ -1,5 +1,6 @@
 package User;
 
+//Class user untuk customer
 public class RegisteredUsers extends User{
 	
 	private String address;
@@ -10,8 +11,6 @@ public class RegisteredUsers extends User{
 		this.address = address;
 		this.PaymentMethod = PaymentMethod;
 	}
-	
-	
 
 	public String getAddress() {
 		return address;
@@ -39,8 +38,7 @@ public class RegisteredUsers extends User{
 
 	@Override
 	public String toString() {
-		return "User ID : " + this.getUserID() + "\nEmail : " + this.getEmail() 
-											   + "\nPassword : " + this.getPassword();
+		return super.toString() + "\naddress : " + this.address + "\npayment method :";
 	}
 	
 	

@@ -1,6 +1,7 @@
 
 package Product;
 
+//Product formal
 public class FormalProduct extends Product{
 	
 	private String dresscode,material;

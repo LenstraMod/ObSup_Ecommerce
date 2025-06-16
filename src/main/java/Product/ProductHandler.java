@@ -38,14 +38,21 @@ public class ProductHandler {
 //		
 //	 }
 	 
+	 //User Function
+	 
+	 //Untuk mengambil semua produk database
 	 public void GetAllProducts() {
 		 
 		 products = new ArrayList<>();
 		 
+		 //Koneksi ke database
 		 Connection conn = null;
+		 //Untuk mengeksekusi sql
 		 PreparedStatement pstmt = null;
+		 //Mengambil hasil dari eksekusi sql
 		 ResultSet rs = null;
 		 
+		 //query sql untuk mengambil semua produk dari table products
 		 String SQL = "SELECT * FROM Products";
 		 
 		 try {
@@ -92,6 +99,7 @@ public class ProductHandler {
 		 }	 
 	 }
 	 
+	 //Mengambil semua produk dari arraylist  products
 	 public void ShowProduct() {
 		 for(Product prd: products) {
 			 System.out.println(prd.toString());
@@ -99,6 +107,7 @@ public class ProductHandler {
 		 }
 	 }
 	 
+	 //Mengambil semua produk dari arraylist yang category formal products
 	 public ArrayList<Product> ShowFormalProduct(){
 		 
 		 ArrayList<Product> FP = new ArrayList<>();
@@ -112,6 +121,7 @@ public class ProductHandler {
 		 return FP;
 	}
 	 
+	 //Mengambil semua produk dari arraylist yang category non formal products
 	 public ArrayList<Product> ShowNonFormalProduct(){
 		 ArrayList<Product> NFP = new ArrayList<>();
 		 
@@ -124,6 +134,7 @@ public class ProductHandler {
 		 return NFP;
 	 }
 	 
+	 //Jika terjadi pembelian maka stok berkurang sesuai jumlah produk yang beli oleh user
 	 public void updateStock(String productId, int productAmount) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -164,6 +175,7 @@ public class ProductHandler {
 		 }
 	 }
 	 
+	 //Mengambil detail produk untuk halaman produk sesuai id produk
 	 public Product ShowProductDetail(String productId) {
 		 Product product = null;
 		 boolean isProductGet = false;
@@ -182,6 +194,10 @@ public class ProductHandler {
 		 return product;
 	 }
 	 
+	 //Admin Function
+	 
+	 //overloading
+	 //Memasukkan data ke database untuk formal product
 	 public boolean InsertProduct(String productName, String productSize, String productColor, String productCategory, String productDescription, int stock, double price, String dresscode, String material) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -227,6 +243,7 @@ public class ProductHandler {
 		 return isSuccess;
 	 }
 	 
+	//Memasukkan data ke database untuk non formal product
 	 public boolean InsertProduct(String productName, String productSize, String productColor, String productCategory, String productDescription, int stock, double price, String ocassion) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -271,6 +288,7 @@ public class ProductHandler {
 		 return isSuccess;
 	 }
 	 
+	 //Edit produk sesuai id produk, property product, value yang baru
 	 public boolean UpdateProduct(String productId, String productProperty, String newValue) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -309,6 +327,7 @@ public class ProductHandler {
 		 return isSuccess;
 	 }
 	 
+	 //Delete produk sesuai id produk
 	 public boolean DeleteProduct(String productId){
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;

@@ -387,7 +387,7 @@
 			while(menu != 9) {
 				try {
 				
-AdminMenu();
+					AdminMenu();
 					
 					menu = MissionUtil.getIntInput("Pilih Menu : " );
 					switch(menu) {

@@ -1,5 +1,6 @@
 package Product;
 
+//Data Produk
 public class Product {
 	private String productID,productName,productSize,productColor,productCategory,productDescription;
 	private int stock;

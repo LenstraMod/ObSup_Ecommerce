@@ -19,7 +19,7 @@ public class UserManager {
 	private static ArrayList<User> users;
 	private static ArrayList<Rating> ratings;
 	
-	
+	//Ambil user untuk membuat session login (Siapa yg login saat ini)
 	public void FetchUser(int userID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -64,6 +64,7 @@ public class UserManager {
 			try {if (pstmt != null) {pstmt.close();}} catch (SQLException e) {e.printStackTrace();}
 	}
 	
+	//Mengambil data user untuk pembayaran
 	public User getUser(String userId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -107,13 +108,13 @@ public class UserManager {
 			return user;		
 	}
 	
-	
+	//mengirim data user secara keseluruhan untuk sesi saat ini
 	public static User getThisSessionUser() {	
 		return CurrentUser;
 	}
 	
 
-
+	//Membuat data user yg baru
 	public boolean register(String email, String username,String password) {	
 		boolean isRegistered = false;
 		String QuerySQL = "INSERT INTO users (username,email,password,role) VALUES (?,?,?,?)";
@@ -155,6 +156,7 @@ public class UserManager {
 		return isRegistered;
 	}
 	
+	//Untuk user masuk ke dalam aplikasi
 	public boolean login(String email, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -218,10 +220,12 @@ public class UserManager {
 
 	}
 	
+	//Mengambil status login user
 	public boolean getIsLogin() {
 		return isLogin;
 	}
 	
+	//Melakukan update address user
 	public static boolean updateAddress(String userId, String address) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -258,7 +262,7 @@ public class UserManager {
 		return isSuccess;
 	}
 	
-	
+	//Mengambil seluruh comment yang ada dari database
 	public static void getComment() {
 		comments = new ArrayList<>();
 		
@@ -299,10 +303,12 @@ public class UserManager {
 	}
 
 
+	//Mengirim comment
 	public static ArrayList<Comment> getComments() {
 		return comments;
 	}
 	
+	//Menambah comment
 	public static boolean addComment(String commentText, String userId, String productId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -340,6 +346,7 @@ public class UserManager {
 		return isSuccess;
 	}
 	
+	//Menambah Rating
 	public static boolean addRating(int ratingValue, String productId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -376,6 +383,7 @@ public class UserManager {
 		return isSuccess;
 	}
 	
+	//Mengambil rating
 	public static void getRating() {
 		ratings = new ArrayList<>();
 		
@@ -414,6 +422,7 @@ public class UserManager {
 		}
 	}
 	
+	//menghitung rating
 	public static double ratingCalculation(String productId) {
 		getRating();
 		

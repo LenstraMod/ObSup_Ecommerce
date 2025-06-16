@@ -1,5 +1,6 @@
 package Product;
 
+//Untuk produk yang tidak formal
 public class NonFormalProduct extends Product{
 
 	private String ocassion;
